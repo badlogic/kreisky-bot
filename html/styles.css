@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Light theme variables */
+:root {
+    --background: #ffffff;
+    --text: #111111;
+    --muted: #4b5563;
+    --link: #3b82f6;
+    --border: ##9ca3af;
+}
+
+/* Dark theme variables */
+.dark {
+    --background: #111111;
+    --text: #ffffff;
+    --muted: #4b5563;
+    --link: #3b82f6;
+    --border: #333;
+}
+
+@layer base {
+    html,
+    body {
+        @apply w-full leading-normal;
+        @apply text-text
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    h1 {
+        @apply font-bold text-xl;
+    }
+
+    h2 {
+        @apply font-bold text-lg;
+    }
+
+    h3 {
+        @apply font-bold;
+    }
+
+    a {
+        @apply break-words hover:underline;
+        @apply text-link;
+    }
+}
+
+@layer components {
+    * {
+        @apply outline-none;
+    }
+}
+
+@layer utilities {
+    .no-touch-highlight {
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    }
+
+    .disable-pointer-events {
+        pointer-events: none;
+    }
+
+    .enable-pointer-events {
+        pointer-events: all;
+    }
+
+    .break-any {
+        overflow-wrap: anywhere;
+    }
+
+    i.icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    i.icon > svg {
+        @apply w-full h-full;
+    }
+}
