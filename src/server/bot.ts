@@ -12,27 +12,34 @@ interface ImageInfo {
     alt: string;
 }
 
-async function replyWithRandomImage(agent: AtpAgent, replyTo: { did: string, cid: string, rkey: string }) {
+let lastImageIndex = -1;  // Start at -1 so first increment goes to 0
+
+async function replyWithRandomImage(agent: AtpAgent, replyTo: {
+    did: string,
+    cid: string,
+    rkey: string,
+    record: { reply?: { root: { uri: string, cid: string } } }
+}) {
     try {
         const imagesJson = await fs.readFile(path.join("images", "images.json"), "utf-8");
         const images = JSON.parse(imagesJson) as ImageInfo[];
-        const randomImage = images[Math.floor(Math.random() * images.length)];
+        lastImageIndex = (lastImageIndex + 1) % images.length;
+        const randomImage = images[lastImageIndex];
         const imageData = await fs.readFile(path.join("images", randomImage.path));
+
         const uploadResponse = await agent.api.com.atproto.repo.uploadBlob(imageData, {
             encoding: "image/jpeg",
         });
-        if (!uploadResponse.success) {
-            console.error(chalk.red("Uploading blob failed"), uploadResponse);
-            throw new Error(chalk.red("Uploading blob failed"));
-        }
 
-        const postResponse = await agent.post({
+        const root = replyTo.record.reply?.root ?? {
+            uri: `at://${replyTo.did}/app.bsky.feed.post/${replyTo.rkey}`,
+            cid: replyTo.cid
+        };
+
+        await agent.post({
             text: "",
             reply: {
-                root: {
-                    uri: `at://${replyTo.did}/app.bsky.feed.post/${replyTo.rkey}`,
-                    cid: replyTo.cid
-                },
+                root: root,
                 parent: {
                     uri: `at://${replyTo.did}/app.bsky.feed.post/${replyTo.rkey}`,
                     cid: replyTo.cid
@@ -141,7 +148,8 @@ export async function startBot() {
                             await replyWithRandomImage(agent, {
                                 did: event.did,
                                 cid: event.commit.cid,
-                                rkey: event.commit.rkey
+                                rkey: event.commit.rkey,
+                                record: event.commit.record as any
                             });
                             break;
                         }
