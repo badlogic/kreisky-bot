@@ -21,8 +21,7 @@ services:
         stop_grace_period: 0s
         environment:
             PORT: 3333
-            ACCOUNT: ${KREISKYBOT_ACCOUNT}
-            PASSWORD: ${KREISKYBOT_PASSWORD}
+            CONFIG: ${KREISKYBOT_CONFIG}
             FORCE_COLOR: 1
 
         volumes:

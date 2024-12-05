@@ -7,3 +7,5 @@ src/.DS_Store
 html/version.json
 build
 tokens.json
+images/kreiskybot.bsky.social.json
+images/moodengbot.bsky.social.json

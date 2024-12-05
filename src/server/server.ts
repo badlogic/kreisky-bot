@@ -1,5 +1,4 @@
 import bodyParser from "body-parser";
-import chalk from "chalk";
 import * as chokidar from "chokidar";
 import compression from "compression";
 import cors from "cors";
@@ -7,7 +6,7 @@ import express from "express";
 import * as fs from "fs";
 import * as http from "http";
 import WebSocket, { WebSocketServer } from "ws";
-import { startBot } from "./bot";
+import { startBots } from "./bot";
 
 const port = process.env.PORT ?? 3333;
 
@@ -32,9 +31,8 @@ const port = process.env.PORT ?? 3333;
     });
 
     setupLiveReload(server);
-    startBot();
+    startBots();
 })();
-
 
 function setupLiveReload(server: http.Server) {
     const wss = new WebSocketServer({ server });
