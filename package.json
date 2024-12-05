@@ -1,16 +1,19 @@
 {
   "app": {
-    "domain": "test.app.io",
-    "description": "A super duper app",
+    "domain": "kreiskybot",
+    "description": "Web home of the Bluesky @kreiskybot",
     "email": "contact@mariozechner.at",
     "host": "slayer.marioslab.io",
     "hostDir": "/home/badlogic",
-    "name": "app",
+    "name": "kreiskybot",
     "serverPort": 3333,
-    "needsDb": true
+    "needsDb": false
   },
   "dependencies": {
+    "@atproto/api": "^0.13.18",
+    "@skyware/jetstream": "^0.2.1",
     "body-parser": "^1.20.3",
+    "chalk": "^5.3.0",
     "chokidar": "^3.5.3",
     "compression": "^1.7.5",
     "cors": "^2.8.5",
@@ -44,7 +47,7 @@
     "tailwindcss": "3.4.15"
   },
   "license": "MIT",
-  "name": "__app_name__",
+  "name": "kreiskybot",
   "scripts": {
     "build": "npm run build:css && npm run build:site && npm run build:server",
     "build:css": "npx tailwindcss -i html/styles.css -o html/build/styles-bundle.css",
