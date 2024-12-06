@@ -152,6 +152,7 @@ export async function startBots() {
     }
 
     const run = (cursor?: number) => {
+        console.log(chalk.magenta("Connecting to firehose"));
         const jetstream = new Jetstream({ ws: WebSocket, cursor });
         jetstream.onCreate("app.bsky.feed.post", async (event) => {
             const record = event.commit.record as {
@@ -185,11 +186,11 @@ export async function startBots() {
         });
         jetstream.on("error", (error: Error, cursor) => {
             console.error(chalk.red("Firehose interrupted, retrying in 10 seconds"), error);
-            jetstream.close();
             setTimeout(() => {
                 console.log(chalk.magenta("Retrying to connect to firehose"));
                 run();
             }, 10000);
+            jetstream.close();
         });
         console.log(chalk.green("Starting Jetstream"));
         jetstream.start();
