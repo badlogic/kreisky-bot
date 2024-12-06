@@ -1,13 +1,25 @@
 import chalk from "chalk";
-import { AtpAgent, AtpSessionData } from "@atproto/api";
+import { AppBskyFeedDefs, AppBskyFeedPost, AtpAgent, AtpSessionData } from "@atproto/api";
 import { Jetstream } from "@skyware/jetstream";
 import WebSocket from "ws";
 import fs from "fs/promises";
 import path from "path";
+import { pickQuote } from "./llm";
 
-interface ImageInfo {
+export interface ImageInfo {
     path: string;
     alt: string;
+}
+
+export interface Quote {
+    text: string;
+    tags: string[];
+    url: string;
+}
+
+export interface QuotesAndImages {
+    quotes?: Quote[];
+    images: ImageInfo[];
 }
 
 export type BotConfig = {
@@ -24,6 +36,43 @@ export type Bot = {
 
 export const bots: Bot[] = [];
 
+export async function getPostThread(agent: AtpAgent, postUri: string): Promise<Array<{ text: string; uri: string }>> {
+    const thread: Array<{ text: string; uri: string }> = [];
+
+    async function fetchPost(uri: string): Promise<void> {
+        try {
+            const response = await agent.app.bsky.feed.getPostThread({ uri });
+
+            if (!AppBskyFeedDefs.isThreadViewPost(response.data.thread)) {
+                throw new Error("Invalid thread view");
+            }
+
+            const post = response.data.thread.post;
+
+            if (!AppBskyFeedPost.isRecord(post.record)) {
+                throw new Error("Invalid post record");
+            }
+
+            thread.unshift({
+                text: post.record.text,
+                uri: post.uri,
+            });
+
+            // Check if this post is a reply
+            if (post.record.reply) {
+                const parentUri = post.record.reply.parent.uri;
+                await fetchPost(parentUri);
+            }
+        } catch (error) {
+            console.error("Error fetching post:", error);
+            throw error;
+        }
+    }
+
+    await fetchPost(postUri);
+    return thread;
+}
+
 async function replyWithRandomImage(
     bot: Bot,
     replyTo: {
@@ -34,15 +83,40 @@ async function replyWithRandomImage(
     }
 ) {
     try {
-        const imagesJson = await fs.readFile(path.join("images", bot.config.configFile), "utf-8");
-        const images = JSON.parse(imagesJson) as ImageInfo[];
-        bot.lastImageIndex = (bot.lastImageIndex + 1) % images.length;
-        const randomImage = images[bot.lastImageIndex];
+        const configJson = await fs.readFile(path.join("images", bot.config.configFile), "utf-8");
+        const quotesAndImages = JSON.parse(configJson) as QuotesAndImages;
+        bot.lastImageIndex = (bot.lastImageIndex + 1) % quotesAndImages.images.length;
+        const randomImage = quotesAndImages.images[bot.lastImageIndex];
         const imageData = await fs.readFile(path.join("images", randomImage.path));
 
-        const uploadResponse = await bot.agent.api.com.atproto.repo.uploadBlob(imageData, {
+        const uploadResponse = bot.agent.api.com.atproto.repo.uploadBlob(imageData, {
             encoding: "image/jpeg",
         });
+
+        let quote = "";
+        if (quotesAndImages.quotes) {
+            try {
+                const threadResponse = getPostThread(
+                    new AtpAgent({ service: "https://public.api.bsky.app" }),
+                    `at://${replyTo.did}/app.bsky.feed.post/${replyTo.rkey}`
+                );
+                Promise.all([uploadResponse, threadResponse]);
+                quote = await pickQuote(
+                    quotesAndImages.quotes.map((q) => q.text),
+                    (
+                        await threadResponse
+                    )
+                        .reverse()
+                        .slice(0, 5)
+                        .map((p) => p.text)
+                        .join("\n\n")
+                );
+            } catch (e) {
+                console.log("Could not pick quote", e);
+            }
+        } else {
+            await uploadResponse;
+        }
 
         const root = replyTo.record.reply?.root ?? {
             uri: `at://${replyTo.did}/app.bsky.feed.post/${replyTo.rkey}`,
@@ -50,7 +124,7 @@ async function replyWithRandomImage(
         };
 
         await bot.agent.post({
-            text: "",
+            text: quote ? `"${quote}"` : "",
             reply: {
                 root: root,
                 parent: {
@@ -63,7 +137,7 @@ async function replyWithRandomImage(
                 images: [
                     {
                         alt: randomImage.alt,
-                        image: uploadResponse.data.blob,
+                        image: (await uploadResponse).data.blob,
                     },
                 ],
             },

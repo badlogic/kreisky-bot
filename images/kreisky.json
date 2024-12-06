@@ -1,34 +1,893 @@
-[
-    {
-        "path": "kreisky1.jpg",
-        "alt": "Kreisky greift sich an den Kopf."
-    },
-    {
-        "path": "kreisky2.jpg",
-        "alt": "Kreisky greift sich ans Auge."
-    },
-    {
-        "path": "kreisky3.jpg",
-        "alt": "Kreisky knabbert an seiner Brille und is judging you."
-    },
-    {
-        "path": "kreisky4.jpg",
-        "alt": "Kreisky disapproves."
-    },
-    {
-        "path": "kreisky5.jpg",
-        "alt": "Ein Zeitreisender ruft Kreisky an, und erzählt ihm vom aktuellen Zustand der SPÖ. Kreisky is not amused."
-    },
-    {
-        "path": "kreisky6.jpg",
-        "alt": "Bruno Kreisky und Heinz Fischer blicken auf ein Papier. 'Schau Heinzi,- do in den Statuten'. Von @kiki1bail.bsky.social."
-    },
-    {
-        "path": "kreisky7.jpg",
-        "alt": "Bruno Kreisky nimmt seine Sonnenbrille ab und blickt dir intensiv in die Augen. Foto: ÖNB / Margret Wenzel-Jelinek"
-    },
-    {
-        "path": "kreisky8.jpg",
-        "alt": "Bruno Kreisky steht vor einer Bundeslandflagge. Er schaut dich enttäuscht an."
-    }
-]
+{
+    "images": [
+        {
+            "path": "kreisky1.jpg",
+            "alt": "Kreisky greift sich an den Kopf."
+        },
+        {
+            "path": "kreisky2.jpg",
+            "alt": "Kreisky greift sich ans Auge."
+        },
+        {
+            "path": "kreisky3.jpg",
+            "alt": "Kreisky knabbert an seiner Brille und is judging you."
+        },
+        {
+            "path": "kreisky4.jpg",
+            "alt": "Kreisky disapproves."
+        },
+        {
+            "path": "kreisky5.jpg",
+            "alt": "Ein Zeitreisender ruft Kreisky an, und erzählt ihm vom aktuellen Zustand der SPÖ. Kreisky is not amused."
+        },
+        {
+            "path": "kreisky6.jpg",
+            "alt": "Bruno Kreisky und Heinz Fischer blicken auf ein Papier. 'Schau Heinzi,- do in den Statuten'. Von @kiki1bail.bsky.social."
+        },
+        {
+            "path": "kreisky7.jpg",
+            "alt": "Bruno Kreisky nimmt seine Sonnenbrille ab und blickt dir intensiv in die Augen. Foto: ÖNB / Margret Wenzel-Jelinek"
+        },
+        {
+            "path": "kreisky8.jpg",
+            "alt": "Bruno Kreisky steht vor einer Bundeslandflagge. Er schaut dich enttäuscht an."
+        }
+    ],
+    "quotes": [
+        {
+            "text": "5-Tage-Schulwoche? Ich habe dafür nur Verständnis, aber keine Meinung.",
+            "tags": [
+                "Politik(er)",
+                "Kritik(er)",
+                "Bildung - Lernen - Wissen"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286341"
+        },
+        {
+            "text": "Absolut sichere Arbeitsplätze gibt es nur bei der öffentlichen Hand und beim Rundfunk.",
+            "tags": [
+                "Arbeitsplatz",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19743"
+        },
+        {
+            "text": "Akte sind keine Haserln, die hupfen net weg!",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19554"
+        },
+        {
+            "text": "Alles, was wir tun, ist politisch klug.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19569"
+        },
+        {
+            "text": "Arbeit bestimmt die Identität und das Selbstwertgefühl des Menschen und sichert die soziale und wirtschaftliche Basis der Gesellschaft. Arbeit muss gerecht verteilt sein.",
+            "tags": [
+                "Gerechtigkeit",
+                "Arbeitsplatz",
+                "Arbeit - Gesellschaft - Miteinander"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/284738"
+        },
+        {
+            "text": "Auf anständige Weise ist noch kein österreichischer Politiker reich geworden.",
+            "tags": [
+                "Korruption",
+                "Politik(er)",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286343"
+        },
+        {
+            "text": "Bestochene gibt es nur dort, wo es auch Bestecher gibt. Das ist eine unauflösliche Gemeinschaft.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19435"
+        },
+        {
+            "text": "Da brauchen S' gar net mitschreiben, der Stari merkt sich eh keine Namen.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/18843"
+        },
+        {
+            "text": "Da wird immer abfällig von Kagran geredet, eigentlich ist das ja Kaisermühlen - das klingt schon ganz anders.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/20113"
+        },
+        {
+            "text": "Das Gefährlichste an einer Partei, die an der Regierung ist, ist Selbstgefälligkeit.",
+            "tags": [
+                "Bundeskanzler Österreich",
+                "Regierung"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/166743"
+        },
+        {
+            "text": "Das Gefährlichste einer Partei, die an der Regierung ist, ist Selbstgefälligkeit.",
+            "tags": [
+                "Gefahr",
+                "Politik(er)",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286348"
+        },
+        {
+            "text": "Das mit dem Nassrasieren war natürlich nur scherzhaft gemeint. Worauf ich hinaus wollte, war folgendes: Wir müssen alle sparsamer mit Energie umgehen.",
+            "tags": [
+                "Sparen",
+                "Politik(er)",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286337"
+        },
+        {
+            "text": "Das Unvollendete - das ist der Sinn des Lebens.",
+            "tags": [
+                "Bundeskanzler Österreich",
+                "Sinn(e)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/64645"
+        },
+        {
+            "text": "Daß junge Revolutionäre im Alter mit Frack und Orden herumgehen, scheint die Rache der Geschichte zu sein. (Im ORIGINAL: Die Rache der Geschichte an jungen Revolutionären, daß, wenn sie alt werden, daß sie mit Frack und Orden bei solchen Sachen dabei sein müssen).",
+            "tags": [
+                "Alter",
+                "Geschichte",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/182168"
+        },
+        {
+            "text": "Der Begriff konservativ ist kein Reizwort mehr. Ich verwend' ihn auch nicht mehr gern, denn bei konservativ denken die Leut' ans Erhalten guter Zeiten.",
+            "tags": [
+                "Politik(er)",
+                "Regierung",
+                "Parlament"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/287161"
+        },
+        {
+            "text": "Der Friede vermag alles, der Krieg nichts.",
+            "tags": [
+                "Friede",
+                "Krieg",
+                "Erika Pluhar spricht . . ."
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/134367"
+        },
+        {
+            "text": "Der Sinn des Lebens ist das Unvollendete.",
+            "tags": [
+                "Leben",
+                "Schicksal",
+                "Politik(er)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/283267"
+        },
+        {
+            "text": "Der Verstand ist ein Ding, das Verstehen ein anderes. Zum Verstehen reicht der Verstand allein nicht aus. Dazu gehört die Bereitschaft, auf den anderen eingehen zu wollen. Und diese Bereitschaft ist bei mir immer vorhanden.",
+            "tags": [
+                "Staat",
+                "Demokratie",
+                "Politik(er)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/288065"
+        },
+        {
+            "text": "Die Erfahrung lehrt - mir geht es jedenfalls so -, dass Instinkt und Intellekt bei Leuten, die nun einmal auch rasche Entscheidungen treffen müssen, ineinandergreifen. Der Instinkt lässt sich vom Intellekt nicht trennen. Nicht in der Wirklichkeit, höchstens in der Theorie. Entscheidend ist ein Integrationsprozess zwischen Intellekt und Instinkt. Besser noch: Er geht der Entscheidung voraus.",
+            "tags": [
+                "Intelligenz",
+                "Staat",
+                "Demokratie"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/288061"
+        },
+        {
+            "text": "Die Erkenntnis meines Lebens ist, daß man gegen die Atomenergie sein muß.",
+            "tags": [
+                "Erkenntnis",
+                "Erfahrung(en)",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/64811"
+        },
+        {
+            "text": "Die Finnen liegen, wo sie liegen. Mehr habe ich dazu nicht zu sagen.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19442"
+        },
+        {
+            "text": "Die Frage ist und heißt immer: WAS IST, WENN oder WAS IST, WENN NICHT.",
+            "tags": [
+                "Staat",
+                "Demokratie",
+                "Politik(er)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/288067"
+        },
+        {
+            "text": "Die Menschen sind selbst die Träger ihres Schicksals.",
+            "tags": [
+                "Leben",
+                "Schicksal",
+                "Politik(er)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/283268"
+        },
+        {
+            "text": "Die Österreicher beginnen einen Rohstoff auszubeuten, der ihnen bald Milliarden einbringen wird: Schnee.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/159623"
+        },
+        {
+            "text": "Die österreichische verstaatlichte Industrie wird keine Finanzhilfen des Bundes erhalten, jedoch hoffnungslos defizitäre Betriebe schließen dürfen.",
+            "tags": [
+                "Bundeskanzler Österreich",
+                "Betrieb",
+                "Industrie"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/21007"
+        },
+        {
+            "text": "Die Politik der Bundesregierung kann die Arbeitslosigkeit nur marginal beeinflussen.",
+            "tags": [
+                "Politik(er)",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19825"
+        },
+        {
+            "text": "Die Politiker leben in einer Scheinwelt, die echte Macht liegt bei denen, die in der Wirtschaft eine führende Rolle spielen.",
+            "tags": [
+                "Staat",
+                "Wirtschaft",
+                "Macht"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/288060"
+        },
+        {
+            "text": "Die Rache der Geschichte an den Revolutionären. (Im ORIGINAL: Die Rache der Geschichte an jungen Revolutionären, daß, wenn sie alt werden, daß sie mit Frack und Orden bei solchen Sachen dabei sein müssen).",
+            "tags": [
+                "Geschichte",
+                "Bundeskanzler Österreich",
+                "Prominenz - Gesellschaft"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/24746"
+        },
+        {
+            "text": "Die Rache der Geschichte an jungen Revolutionären besteht darin, daß sie in späteren Jahren mit Frack und Orden zum Opernball gehen müssen.",
+            "tags": [
+                "Geschichte",
+                "Bundeskanzler Österreich",
+                "Prominenz - Gesellschaft"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/189962"
+        },
+        {
+            "text": "Die SPÖ muss aufhören, eine von Männern dominierte Bewegung zu sein.",
+            "tags": [
+                "Politik(er)",
+                "Bundeskanzler Österreich",
+                "Weltfrauentag"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286344"
+        },
+        {
+            "text": "Die Verstaatlichte beschäftigt alle Leute und macht gigantische Verluste. Das kann man ein, zwei Jahre lang machen, aber dann ist Schluß. Die Verluste kann ja niemand decken, und wenn sie der Staat deckt, so kann er das nur ganz kurz machen.",
+            "tags": [
+                "Staat",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/21009"
+        },
+        {
+            "text": "Durch die Bildung von Räten entsteht nicht mehr Energie.",
+            "tags": [
+                "Bildung - Lernen - Wissen",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19200"
+        },
+        {
+            "text": "Einkommen und Vermögen sind keine Schande, höchstens die Art, wie sie zustande kommen.",
+            "tags": [
+                "Reichtum",
+                "Besitz",
+                "Charakter"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/14666"
+        },
+        {
+            "text": "Einmal, als ich krank war, habe ich meinen Ärzten gesagt, bei mir gebe es kein Arztgeheimnis. Denn die Öffentlichkeit muss wissen, ob ich diese Aufgabe erfüllen kann oder nicht.",
+            "tags": [
+                "Kommunikation",
+                "Staat",
+                "Demokratie"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/288059"
+        },
+        {
+            "text": "Es gibt Situationen, wo man sich nicht nur der Segnungen des Weltpostvereins bedienen kann.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19428"
+        },
+        {
+            "text": "Es wäre mir nicht lieber gewesen, wenn der Finanzminister gegangen wäre, es ist kein einfacher Fall, wenn ein junger fähiger Mensch die Politik verläßt.",
+            "tags": [
+                "Politik(er)",
+                "Bundeskanzler Österreich",
+                "Mensch(en)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19487"
+        },
+        {
+            "text": "Es widerspricht sozialdemokratischen Grundsätzen, Güter des täglichen Gebrauchs zu verteuern.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/18282"
+        },
+        {
+            "text": "Für Sozialdemokraten gibt es keine \"da oben\" und keine \"da unten\". Entweder sind alle oben oder alle sind unten.",
+            "tags": [
+                "Politik(er)",
+                "Bundeskanzler Österreich",
+                "Partei(en)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286349"
+        },
+        {
+            "text": "Herr Professor, seit Isaias sind Propheten nicht mehr gefragt.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/18281"
+        },
+        {
+            "text": "Ich betrachte mich nicht sosehr als Politiker, sondern als einen im politischen Geschehen Wirkenden.",
+            "tags": [
+                "Charakter",
+                "Persönlichkeit",
+                "Politik(er)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/287158"
+        },
+        {
+            "text": "Ich bin der festen Überzeugung, dass, wenn wir mit der Macht nicht mehr anfangen können, als sie lange zu praktizieren, es uns recht geschieht, wenn wir sie wieder verlieren. Unsere Machtposition muss moralisch determiniert sein. Wir müssen nicht die Macht an sich wollen, sondern wir müssen sie wollen, um unseren Zielvorstellungen näher zu kommen.",
+            "tags": [
+                "Staat",
+                "Macht",
+                "Demokratie"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/285375"
+        },
+        {
+            "text": "Ich bin der Meinung . . . (Legendäre einleitende Worte des \"Journalistenkanzlers\" bei öffentlichen Auftritten).",
+            "tags": [
+                "Kommunikation",
+                "Meinung",
+                "Sprache"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/218659"
+        },
+        {
+            "text": "Ich bin der Meinung, . . . . . . . . ., ist das jetzt klar, ja?",
+            "tags": [
+                "Kommunikation",
+                "Meinung",
+                "Demokratie"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286351"
+        },
+        {
+            "text": "Ich bin gewohnt, dass man mich nicht für einen politischen Trottel hält.",
+            "tags": [
+                "Persönlichkeit",
+                "Politik(er)",
+                "Ego - Egoismus"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286338"
+        },
+        {
+            "text": "Ich bin in dieses Projekt nicht verliebt!",
+            "tags": [
+                "Bundeskanzler Österreich",
+                "Projekt(e)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19936"
+        },
+        {
+            "text": "Ich bin zutiefst verletzt, wenn es Leute gibt, die sich auf meinem Level befinden und für die die sozialistische Idee nichts bedeutet.",
+            "tags": [
+                "Charakter",
+                "Persönlichkeit",
+                "Politik(er)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/287160"
+        },
+        {
+            "text": "Ich denke sicherheitshalber in Alternativen. Was geschehen muss, wenn das eine eintrifft, und was zu tun ist, wenn das andere geschieht. Das ist das simple Geheimnis. Es setzt die Denkarbeit voraus. Zum Beispiel: Was ist zu tun, wenn es nach dieser Rezession zu einer Depression kommt. Die Frage ist und heißt immer: WAS IST, WENN oder WAS IST, WENN NICHT.",
+            "tags": [
+                "Dankbarkeit",
+                "Staat",
+                "Demokratie"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/288066"
+        },
+        {
+            "text": "Ich empfinde gegen niemanden einen Groll.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19486"
+        },
+        {
+            "text": "Ich glaube die Welt ein bissel besser zu verstehen als mancher andere.",
+            "tags": [
+                "Charakter",
+                "Persönlichkeit",
+                "Politik(er)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/287159"
+        },
+        {
+            "text": "Ich habe einmal geschrieben, ich bin kein Intellektueller, aber ich bin trotzdem intellektuell. Es ist wahrscheinlich so, dass ich diesen Begriff vor allem deshalb verwende, weil ich nicht \"Akademiker\" sagen will. Ein Intellektueller braucht kein akademisches Abgangszeugnis zu haben. Er braucht nicht einmal die Universität besucht zu haben.",
+            "tags": [
+                "Intelligenz",
+                "Staat",
+                "Demokratie"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/288062"
+        },
+        {
+            "text": "Ich kenn' so viele Fachleute, dass ich schon wirklich nimmer weiß, wer wirklich einer ist, denn Fachleute haben sich auch schon geirrt.",
+            "tags": [
+                "Irrtum",
+                "Politik(er)",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286346"
+        },
+        {
+            "text": "Ich lasse mir von Bankdirektoren nicht vorschreiben, ob ich Interviews geben darf oder nicht.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19431"
+        },
+        {
+            "text": "Ich lege keinen Wert auf Kränze, die die Nachwelt mir flicht. Ich lege keinen Wert auf Denkmäler. Was ich aber gerne hätte, wäre wenn einmal die Periode, in der ich die politischen Verhältnisse in Österreich beeinflussen konnte, als eine Periode der Einleitung großer Reformen betrachtet wird, die ihre gesellschaftlichen Spuren hinterlassen und eine Verbesserung der gesellschaftlichen Verhältnisse gebracht haben. Nichts wäre grauslicher als der Gedanke, nur administriert zu haben.",
+            "tags": [
+                "Bundeskanzler Österreich",
+                "Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/124675"
+        },
+        {
+            "text": "Ich möchte nicht selbst beginnen, weil es sonst zu langatmig werden könnte.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/18828"
+        },
+        {
+            "text": "Ich rede nicht von neuen Belastungen, sondern von neuen Maßnahmen - das ist ein wesentlicher Unterschied.",
+            "tags": [
+                "Politik(er)",
+                "Steuer(n)",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286340"
+        },
+        {
+            "text": "Ich sehe keinen Grund, die Steuern zu erhöhen. Niemand soll nivelliert werden. Jeder soll seiner Leistung nach das verdienen, was er will. Es war doch noch nie so leicht, selbständiger Unternehmer zu werden.",
+            "tags": [
+                "Leistung",
+                "Steuer(n)",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19155"
+        },
+        {
+            "text": "Ich selbst bin ein alter Jugendlicher.",
+            "tags": [
+                "Alter",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19609"
+        },
+        {
+            "text": "Ich war der Erfinder der Volksabstimmung, und diese Niederlage ist ausschließlich auf mein Konto zu buchen.",
+            "tags": [
+                "Erkenntnis",
+                "Demokratie",
+                "Politik(er)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286347"
+        },
+        {
+            "text": "Ich würde auch Arbeiter, die von ihrer Denkfunktion Gebrauch machen, als \"Intellektuelle\" bezeichnen. Ich meine damit jeden nachdenklichen, zum Nachdenken neigenden Menschen und keineswegs nur die welt- und lebensfremden Theoretiker oder Ideologen, die meinen, sie hätten einen Exklusivitätsanspruch auf diesen Begriff. Intellektuell, das hat für mich eine positive Färbung.",
+            "tags": [
+                "Intelligenz",
+                "Staat",
+                "Demokratie"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/288063"
+        },
+        {
+            "text": "In dem gegenwärtigen Rundfunk gibt es überhaupt nur eine Person, die wirklich unabhängig ist, und das ist der Generalintendant. Und das ist uns eben nicht genug und deshalb muss dieser Zustand geändert werden. (In einer Parlamentsrede im Jahre 1973 forderte der damalige Bundeskanzler massiv eine Änderung der ORF-Geschäftsführung).",
+            "tags": [
+                "Bundeskanzler Österreich",
+                "Best of Gerd Bacher"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/203650"
+        },
+        {
+            "text": "In der Politik gelten eben strengere Maßstäbe. Man muss nicht jemandem nachweisen, dass er etwas Unrichtiges getan hat, sondern schon der Anschein, dass so etwas passieren kann, ist für einen Politiker gefährlich und problematisch.",
+            "tags": [
+                "Korruption",
+                "Politik(er)",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286350"
+        },
+        {
+            "text": "In der Politik muss man den Gegner fixieren, ihn analysieren, seine schwächste Stelle suchen und ihn dann bekämpfen, systematisch, wenn man herausgefunden hat, wo er am meisten verwundbar ist.",
+            "tags": [
+                "Staat",
+                "Demokratie",
+                "Politik(er)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/288058"
+        },
+        {
+            "text": "In Gesprächen mit politischen Freunden interessiert mich die Stärke unserer Politik nicht, sondern die Schwäche. Ich habe jeden Montag, wenn wir zu Vorgesprächen zum Ministerrat zusammenkommen, die Gewohnheit, die Negativfaktoren zu besprechen. Das Positive interessiert nur am Rande. Sich an der eigenen Tüchtigkeit berauschen, ist unsympathisch und gefährlich.",
+            "tags": [
+                "Freundschaft",
+                "Staat",
+                "Demokratie"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/288068"
+        },
+        {
+            "text": "Jeder Mensch, der sich für etwas engagiert, hat eine bessere Lebensqualität als andere, die nur so dahinvegetieren.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/14656"
+        },
+        {
+            "text": "Kärnten ist mir viel zu teuer, des kann i ma net leisten.",
+            "tags": [
+                "Freizeit",
+                "Politik(er)",
+                "Kritik(er)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286339"
+        },
+        {
+            "text": "Lernans a bißl Geschichte und dann werdens sehen, Herr Reporter, wie sich des im Österreichischen Parlament entwickelt hat (\"Wienerische\" Version) - Lernen Sie ein bißchen Geschichte und dann werden Sie sehen, Herr Reporter, wie sich das im Österreichischen Parlament entwickelt hat (Hochdeutsche Version). Antwort auf die Frage des ORF-Reporters Ulrich Brunner: \"Ist der Verweis auf die 1. Republik nicht ein wenig übertrieben?\" (Relevant die Vorgeschichte: Es ging um die Ladung von weiteren Zeugen für den AKH Ausschuss. Kreisky dozierte darüber, dass der Bundespräsident in diesen Parteienstreit - über die Fristverlängerung - nicht hineingezogen werden dürfe und sagte dann auch in der 1. Republik sei durch solche Aktionen das Parlament ausgeschaltet worden und er habe dies erlebt. Im übrigen sei jetzt gerade ein Putschversuch in Spanien gewesen und es gebe auch in Österreich Tendenzen, das Parlament auszuschalten).",
+            "tags": [
+                "Geschichte",
+                "Bildung - Lernen - Wissen",
+                "Seitenblicke"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/182225"
+        },
+        {
+            "text": "Lernen's Geschichte, Herr Redakteur - Dieses Zitat wurde medial extrem verkürzt und lautet im Original: \"Lernen'S ein bissl Geschichte und dann werden Sie sehen, Herr Reporter, wie das in Österreich sich damals im Parlament entwickelt hat\" (Kreisky nimmt Bezug auf die Ausschaltung des Parlaments im Jahre 1933).",
+            "tags": [
+                "Geschichte",
+                "Zitate",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/180803"
+        },
+        {
+            "text": "Man kann Umstände zur Kenntnis nehmen, darf aber nicht bereit sein, sie hinzunehmen.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/203612"
+        },
+        {
+            "text": "Man muß den Mut zum Schuldenmachen haben.",
+            "tags": [
+                "Mut",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/18288"
+        },
+        {
+            "text": "Mit nicht kaufkräftigen Konsumenten können Sie nicht auf den Markt gehen.",
+            "tags": [
+                "Markt - Marketing",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19074"
+        },
+        {
+            "text": "Nicht die sind die Gerechten, die nie Unrecht tun; sondern die sind es, die von Zeit zu Zeit innehalten und sich ihres Unrechts bewußt werden.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/165023"
+        },
+        {
+            "text": "Nichts ist für eine erfolgreiche Praxis so nützlich, wie eine gute Theorie.",
+            "tags": [
+                "Praxis",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/190343"
+        },
+        {
+            "text": "Ob ich beim Opernball tanze? Eineinhalb Stunden musste ich aufgrund von umfangreichen Damenwahlen auf dem Parkett verbringen. Aber dann bin ich, wie man in Wien so schön sagt, auf's Häus'l geflüchtet.",
+            "tags": [
+                "Bundeskanzler Österreich",
+                "Prominenz - Gesellschaft"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/166744"
+        },
+        {
+            "text": "Pünktlichkeit? Genossen, erstens habe ich keine Zeit pünktlich zu sein, und zweitens habe ich die Erfahrung gemacht, dass ich noch niemals etwas versäumt habe.",
+            "tags": [
+                "Zeit",
+                "Zeitmanagement",
+                "Erfahrung(en)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/287647"
+        },
+        {
+            "text": "Schaun S', Herr Doktor, tun S' net immer mit dem Finger zeigen. Diese gouvernantenhafte Art, das wollen die Leut' net.",
+            "tags": [
+                "Fernsehen",
+                "Politik(er)",
+                "Kritik(er)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/284396"
+        },
+        {
+            "text": "Schön tät ma da ausschauen, wenn nicht am Beginn dieses Jahrhunderts Hunderttausende Tschechen, Slowaken, Ungarn und Polen zu Wienern geworden wären.",
+            "tags": [
+                "Toleranz",
+                "Politik(er)",
+                "Humanität - Miteinander"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286345"
+        },
+        {
+            "text": "Sie ahnen nicht, wieviel Lob ich ertragen kann. (1977 beim Staatsbesuch in Riad vor Journalisten).",
+            "tags": [
+                "Motivation",
+                "Lob",
+                "Macht"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/285072"
+        },
+        {
+            "text": "SP-Parlamentsklub-Übergabe: Ich habe dem Pittermann gesagt, dass er mit dem sozialistischen Klub tun darf, was er will - nur nicht aus Gewohnheit wie bisher gegen die Regierung Opposition machen.",
+            "tags": [
+                "Politik(er)",
+                "Heiteres - Ironisches - Zum Schmunzeln",
+                "Opposition"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286737"
+        },
+        {
+            "text": "Staaten wie Schweden, Belgien und Holland verbrauchen ihr Geld, um Arbeitslose zu unterstützen, wir, um Arbeitsplätze zu sichern.",
+            "tags": [
+                "Arbeitsplatz",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/20010"
+        },
+        {
+            "text": "Und wenn mich einer fragt, wie denn das mit den Schulden ist, dann sag' ich ihm das, was ich immer wieder sage: dass mir ein paar Milliarden mehr Schulden weniger schlaflose Nächte bereiten, als mir ein paar hunderttausend Arbeitslose mehr bereiten würden.",
+            "tags": [
+                "Staat",
+                "Macht",
+                "Demokratie"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/282688"
+        },
+        {
+            "text": "Und wenn Sie mich fragen, was ich zu den Gehältern der Bankdirektoren sage, dann sage ich Ihnen, da sag' ich gar nix.",
+            "tags": [
+                "Business",
+                "Wirtschaft",
+                "Politik(er)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286336"
+        },
+        {
+            "text": "Unter sozialer Marktwirtschaft kann ich mir nichts vorstellen.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19035"
+        },
+        {
+            "text": "Von dieser Undurchsichtigkeit leben ja ganze Berufsstände.",
+            "tags": [
+                "Leben",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/20069"
+        },
+        {
+            "text": "Von einem Weisungsrecht habe ich nie gesprochen.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/18324"
+        },
+        {
+            "text": "Von Freund/Feind-Begriffen in der Politik halte ich gar nichts. Den politisch Andersdenkenden begreife ich als das, nicht aber als Feind. Dass ich Gefühle des Hasses nicht mobilisieren kann, hat man mir zeitweise als Mangel angelastet. Nein, Hass ist eine Schwäche, denn er macht wirklich blind.",
+            "tags": [
+                "Haß",
+                "Staat",
+                "Demokratie"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/288064"
+        },
+        {
+            "text": "Was für den einen weich ist, ist für den anderen schon halb hart.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19049"
+        },
+        {
+            "text": "Was ich gerne hätte, wäre, wenn einmal die Periode, in der ich die Verhältnisse in Österreich beeinflussen durfte, als eine Periode der Einleitung großer Reformen betrachtet wird, die ihre gesellschaftlichen Spuren hinterlassen und eine Verbesserung der gesellschaftlichen Verhältnisse gebracht haben. Nichts wäre grauslicher als der Gedanke, nur administriert zu haben.",
+            "tags": [
+                "Entwicklung",
+                "Engagement",
+                "Macht"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/282996"
+        },
+        {
+            "text": "Was immer mit dem Ölpreis geschieht, billiger wird er nur, wenn es zu einer donnernden Krise kommt.",
+            "tags": [
+                "Krisen",
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/18045"
+        },
+        {
+            "text": "Weiterreden mit jenen, gegen die man ist - eines Tages kann daraus überraschend Gutes kommen.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/183030"
+        },
+        {
+            "text": "Wenn die uns mit so viel Sang und Klang empfangen, können sie uns nicht mehr sang- und klanglos abziehen lassen. Da steckt was drin.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/173159"
+        },
+        {
+            "text": "Wenn es geheißen hat, die Meidlinger kommen, haben wir immer fürchterliche Schläge gekriegt.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19244"
+        },
+        {
+            "text": "Wenn ich lese, daß die Schiffswerften wieder ausgelastet sind, dann weiß ich, es geht wieder aufwärts - das sind halt meine Kriterien.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/18294"
+        },
+        {
+            "text": "Wenn ich Urlaub mache, fahre ich am liebsten nach Bayern. Da bin ich nicht mehr in Österreich und noch nicht in Deutschland.",
+            "tags": [
+                "Freizeit",
+                "Politik(er)",
+                "Reise - Fernweh - Urlaub"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/286342"
+        },
+        {
+            "text": "Wenn jemand acht Jahre lang Minister war, so hat er ja innerhalb seines Berufes noch große Aussichten.",
+            "tags": [
+                "Bundeskanzler Österreich",
+                "Minister"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19228"
+        },
+        {
+            "text": "Wenn uns die US-Dealer sagen, es ist anzubringen, dann geht das glatt . . .",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/18707"
+        },
+        {
+            "text": "Wir haben nichts Besseres, was ihn ersetzen könnte.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19307"
+        },
+        {
+            "text": "Wir haben sogar ausländische Unternehmer hereingeholt, damit ihr wenigstens wißt, wie Kapitalisten aussehen, wenn ihr sie bekämpfen wollt.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19248"
+        },
+        {
+            "text": "Wir haben, das ist das Erfreulichste, mehr Menschen in Österreich in Arbeit gehabt, als jemals zuvor . . .",
+            "tags": [
+                "Arbeit - Gesellschaft - Miteinander",
+                "Bundeskanzler Österreich",
+                "Mensch(en)"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19054"
+        },
+        {
+            "text": "Wir kaufen sie sogar teuer ein.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19297"
+        },
+        {
+            "text": "Wir sind nicht der Meinung, daß die verstaatlichte Industrie besonders bevorzugt werden soll.",
+            "tags": [
+                "Bundeskanzler Österreich",
+                "Industrie"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/19374"
+        },
+        {
+            "text": "The realization of my life is that one has to be against nuclear energy.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/66106"
+        },
+        {
+            "text": "The unfinshed - that is the meaning of life.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/65882"
+        },
+        {
+            "text": "L'inachevé - voilà le sens de la vie.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/67188"
+        },
+        {
+            "text": "La découverte de ma vie: on doit être contre l'énergie nucléaire.",
+            "tags": [
+                "Bundeskanzler Österreich"
+            ],
+            "url": "/autor/dr-bruno-kreisky-zitate/67414"
+        }
+    ]
+}
