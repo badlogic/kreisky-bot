@@ -11,14 +11,8 @@ export interface ImageInfo {
     alt: string;
 }
 
-export interface Quote {
-    text: string;
-    tags: string[];
-    url: string;
-}
-
 export interface QuotesAndImages {
-    quotes?: Quote[];
+    quotes?: string[];
     images: ImageInfo[];
 }
 
@@ -36,7 +30,7 @@ export type Bot = {
 
 export const bots: Bot[] = [];
 
-export async function getPostThread(agent: AtpAgent, postUri: string): Promise<Array<{ text: string; uri: string }>> {
+export async function getPostThread(agent: AtpAgent, botHandle: string, postUri: string): Promise<Array<{ text: string; uri: string }>> {
     const thread: Array<{ text: string; uri: string }> = [];
 
     async function fetchPost(uri: string): Promise<void> {
@@ -53,10 +47,12 @@ export async function getPostThread(agent: AtpAgent, postUri: string): Promise<A
                 throw new Error("Invalid post record");
             }
 
-            thread.unshift({
-                text: post.record.text,
-                uri: post.uri,
-            });
+            if (response.data.thread.post.author.handle != botHandle) {
+                thread.unshift({
+                    text: post.record.text,
+                    uri: post.uri,
+                });
+            }
 
             // Check if this post is a reply
             if (post.record.reply) {
@@ -98,11 +94,12 @@ async function replyWithRandomImage(
             try {
                 const threadResponse = getPostThread(
                     new AtpAgent({ service: "https://public.api.bsky.app" }),
+                    bot.config.account,
                     `at://${replyTo.did}/app.bsky.feed.post/${replyTo.rkey}`
                 );
                 Promise.all([uploadResponse, threadResponse]);
                 quote = await pickQuote(
-                    quotesAndImages.quotes.map((q) => q.text),
+                    quotesAndImages.quotes,
                     (
                         await threadResponse
                     )
