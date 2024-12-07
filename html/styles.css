@@ -20,35 +20,6 @@
     --border: #333;
 }
 
-@layer base {
-    html,
-    body {
-        @apply w-full leading-normal;
-        @apply text-text
-    }
-
-    .hidden {
-        display: none;
-    }
-
-    h1 {
-        @apply font-bold text-xl;
-    }
-
-    h2 {
-        @apply font-bold text-lg;
-    }
-
-    h3 {
-        @apply font-bold;
-    }
-
-    a {
-        @apply break-words hover:underline;
-        @apply text-link;
-    }
-}
-
 @layer components {
     * {
         @apply outline-none;

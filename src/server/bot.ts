@@ -28,6 +28,14 @@ export type Bot = {
     lastImageIndex: number;
 };
 
+export type ServiceConfig = {
+    bots: BotConfig[];
+    autoblocker: {
+        account: string;
+        password: string;
+    };
+};
+
 export const bots: Bot[] = [];
 
 export async function getPostThread(agent: AtpAgent, botHandle: string, postUri: string): Promise<Array<{ text: string; uri: string }>> {
@@ -146,9 +154,9 @@ async function replyWithRandomImage(
     }
 }
 
-const tokenFile = (botConfig: BotConfig) => "images/" + botConfig.account + ".json";
+const tokenFile = (botConfig: BotConfig | ServiceConfig["autoblocker"]) => "images/" + botConfig.account + ".json";
 
-async function saveSession(botConfig: BotConfig, session: AtpSessionData) {
+async function saveSession(botConfig: BotConfig | ServiceConfig["autoblocker"], session: AtpSessionData) {
     try {
         await fs.writeFile(tokenFile(botConfig), JSON.stringify(session, null, 2));
         console.log(chalk.green(`Session saved successfully for bot ${botConfig.account}`));
@@ -157,7 +165,7 @@ async function saveSession(botConfig: BotConfig, session: AtpSessionData) {
     }
 }
 
-async function loadSession(botConfig: BotConfig): Promise<AtpSessionData | null> {
+async function loadSession(botConfig: BotConfig | ServiceConfig["autoblocker"]): Promise<AtpSessionData | null> {
     try {
         const data = await fs.readFile(tokenFile(botConfig), "utf-8");
         return JSON.parse(data) as AtpSessionData;
@@ -167,7 +175,7 @@ async function loadSession(botConfig: BotConfig): Promise<AtpSessionData | null>
     }
 }
 
-async function login(botConfig: BotConfig) {
+export async function login(botConfig: BotConfig | ServiceConfig["autoblocker"]) {
     const agent = new AtpAgent({
         service: "https://bsky.social",
         persistSession: (evt, session) => {
@@ -212,7 +220,7 @@ async function login(botConfig: BotConfig) {
 
 export async function startBots() {
     try {
-        const configs = JSON.parse(process.env.CONFIG ?? "") as BotConfig[];
+        const configs = (JSON.parse(process.env.CONFIG ?? "") as ServiceConfig).bots;
         for (const config of configs) {
             const agent = await login(config);
             bots.push({ agent, config, lastImageIndex: -1 });

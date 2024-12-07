@@ -7,6 +7,7 @@ import * as fs from "fs";
 import * as http from "http";
 import WebSocket, { WebSocketServer } from "ws";
 import { startBots } from "./bot";
+import { startAutoblocklists } from "./autoblocklists";
 
 const port = process.env.PORT ?? 3333;
 
@@ -32,6 +33,7 @@ const port = process.env.PORT ?? 3333;
 
     setupLiveReload(server);
     startBots();
+    startAutoblocklists();
 })();
 
 function setupLiveReload(server: http.Server) {

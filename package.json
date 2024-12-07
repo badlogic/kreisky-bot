@@ -10,7 +10,9 @@
     "needsDb": false
   },
   "dependencies": {
+    "@atcute/client": "^2.0.6",
     "@atproto/api": "^0.13.18",
+    "@isaacs/ttlcache": "^1.4.1",
     "@skyware/jetstream": "^0.2.1",
     "@types/cheerio": "^0.22.35",
     "body-parser": "^1.20.3",
@@ -59,6 +61,7 @@
     "build:site": "node ./esbuild.site.mjs",
     "clean": "rimraf html/build",
     "dev": "concurrently -r \"npx tsc --noEmit --preserveWatchOutput --watch\" \"npm run build:site -- --watch\" \"npm run build:css -- --watch\" \"npm run build:server -- --watch\" \"./docker/control.sh startdev\"",
+    "fun": "concurrently -r \"npx tsc --noEmit --preserveWatchOutput --watch\" \"npm run build:site -- --watch\" \"npm run build:css -- --watch\" \"npm run build:server -- --watch\"",
     "format": "npx prettier --write .",
     "prepare": "husky install"
   },
