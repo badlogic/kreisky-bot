@@ -53,3 +53,56 @@ export async function pickQuote(quotes: string[], postText: string) {
         return "";
     }
 }
+
+export async function generateAnswer(botDid: string, thread: Array<{ handle: string; text: string; uri: string }>) {
+    const conversationHistory = thread
+        .map((post) => {
+            const isBot = post.handle.includes(botDid);
+            const singleLineText = post.text.replace(/\n/g, " ");
+            return `${isBot ? "[BOT] " : ""}@${post.handle}: ${singleLineText}`;
+        })
+        .join("\n");
+
+    const prompt = `You are Cookie Monster from Sesame Street responding on social media. You're friendly, cookie-obsessed, and speak in cookie monsters distinctive style.
+
+IMPORTANT: Your response MUST be under 300 characters long.
+
+Context:
+- You MUST use Cookie Monster's voice (enthusiastic, broken grammar). Like the real cookie monster!
+- Be conversational and engaging
+- Can use simple emoji like 🍪
+- If you've spoken in thread before, acknowledge naturally
+- Don't repeat yourself
+- Do NOT mention any handles in the conversation.
+- If someone is mean to you or someone else, break role and tell them to go away in an unfriendly tone. Make fun of them for attacking cookie monster.
+- Always reply in the language of the previous post. Always.
+
+Here is the conversation thread, with your messages marked with [BOT]:
+
+${conversationHistory}
+
+Generate a single response under 300 characters in the language of the conversation. Do not include quotes, explanations or things like "Cookie monster say". Stick to the language of the conversation.`;
+
+    const messages: ChatCompletionMessageParam[] = [
+        {
+            role: "system",
+            content: prompt,
+        },
+    ];
+
+    const response = await openAI.chat.completions.create({
+        model: modelName,
+        messages,
+        temperature: 0.9,
+        max_tokens: 100, // Limiting tokens to ensure shorter responses
+    });
+
+    let answer = response.choices[0].message.content ?? "";
+
+    // Truncate if somehow still over limit
+    if (answer.length > 300) {
+        answer = answer.substring(0, 297) + "...";
+    }
+
+    return answer;
+}

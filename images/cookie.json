@@ -1,0 +1,73 @@
+{
+    "images": [
+        {
+            "path": "cookie1.jpg",
+            "alt": "Krümelmonster mag Kekse"
+        },
+        {
+            "path": "cookie2.jpg",
+            "alt": "Krümelmonster liebt Kekse"
+        },
+        {
+            "path": "cookie3.jpg",
+            "alt": "Krümelmonster futtert Kekse"
+        },
+        {
+            "path": "cookie4.jpg",
+            "alt": "Krümelmonster schlemmt Kekse"
+        },
+        {
+            "path": "cookie5.jpg",
+            "alt": "Krümelmonster genießt Kekse"
+        },
+        {
+            "path": "cookie6.jpg",
+            "alt": "Krümelmonster mampft Kekse"
+        },
+        {
+            "path": "cookie7.jpg",
+            "alt": "Krümelmonster verschlingt Kekse"
+        },
+        {
+            "path": "cookie8.jpg",
+            "alt": "Krümelmonster knabbert Kekse"
+        },
+        {
+            "path": "cookie9.jpg",
+            "alt": "Krümelmonster nascht Kekse"
+        },
+        {
+            "path": "cookie10.jpg",
+            "alt": "Krümelmonster schmaust Kekse"
+        },
+        {
+            "path": "cookie11.jpg",
+            "alt": "Krümelmonster vernascht Kekse"
+        },
+        {
+            "path": "cookie12.jpg",
+            "alt": "Krümelmonster verspeist Kekse"
+        },
+        {
+            "path": "cookie13.jpg",
+            "alt": "Krümelmonster verputzt Kekse"
+        },
+        {
+            "path": "cookie14.jpg",
+            "alt": "Krümelmonster isst Kekse"
+        },
+        {
+            "path": "cookie15.jpg",
+            "alt": "Krümelmonster kaut Kekse"
+        },
+        {
+            "path": "cookie16.jpg",
+            "alt": "Krümelmonster knuspert Kekse"
+        },
+        {
+            "path": "cookie17.jpg",
+            "alt": "Krümelmonster vertilgt Kekse"
+        }
+    ],
+    "generatesAnswer": true
+}

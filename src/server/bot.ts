@@ -4,7 +4,7 @@ import { Jetstream } from "@skyware/jetstream";
 import WebSocket from "ws";
 import fs from "fs/promises";
 import path from "path";
-import { pickQuote } from "./llm";
+import { generateAnswer, pickQuote } from "./llm";
 
 export interface ImageInfo {
     path: string;
@@ -13,6 +13,7 @@ export interface ImageInfo {
 
 export interface QuotesAndImages {
     quotes?: string[];
+    generatesAnswer: boolean;
     images: ImageInfo[];
 }
 
@@ -20,6 +21,7 @@ export type BotConfig = {
     account: string;
     password: string;
     configFile: string;
+    generatesAnswer: boolean;
 };
 
 export type Bot = {
@@ -38,8 +40,13 @@ export type ServiceConfig = {
 
 export const bots: Bot[] = [];
 
-export async function getPostThread(agent: AtpAgent, botHandle: string, postUri: string): Promise<Array<{ text: string; uri: string }>> {
-    const thread: Array<{ text: string; uri: string }> = [];
+export async function getPostThread(
+    agent: AtpAgent,
+    botHandle: string,
+    postUri: string,
+    excludeBotPosts = true
+): Promise<Array<{ handle: string; text: string; uri: string }>> {
+    const thread: Array<{ handle: string; text: string; uri: string }> = [];
 
     async function fetchPost(uri: string): Promise<void> {
         try {
@@ -55,11 +62,20 @@ export async function getPostThread(agent: AtpAgent, botHandle: string, postUri:
                 throw new Error("Invalid post record");
             }
 
-            if (response.data.thread.post.author.handle != botHandle) {
+            if (!excludeBotPosts) {
                 thread.unshift({
+                    handle: response.data.thread.post.author.handle,
                     text: post.record.text,
                     uri: post.uri,
                 });
+            } else {
+                if (response.data.thread.post.author.handle != botHandle) {
+                    thread.unshift({
+                        handle: response.data.thread.post.author.handle,
+                        text: post.record.text,
+                        uri: post.uri,
+                    });
+                }
             }
 
             // Check if this post is a reply
@@ -116,6 +132,20 @@ async function replyWithRandomImage(
                         .map((p) => p.text)
                         .join("\n\n")
                 );
+                quote = `"${quote}"`;
+            } catch (e) {
+                console.log("Could not pick quote", e);
+            }
+        } else if (quotesAndImages.generatesAnswer) {
+            try {
+                const threadResponse = getPostThread(
+                    new AtpAgent({ service: "https://public.api.bsky.app" }),
+                    bot.config.account,
+                    `at://${replyTo.did}/app.bsky.feed.post/${replyTo.rkey}`,
+                    false
+                );
+                Promise.all([uploadResponse, threadResponse]);
+                quote = await generateAnswer(bot.config.account, (await threadResponse).slice(0, 10));
             } catch (e) {
                 console.log("Could not pick quote", e);
             }
@@ -129,7 +159,7 @@ async function replyWithRandomImage(
         };
 
         await bot.agent.post({
-            text: quote ? `"${quote}"` : "",
+            text: quote ? quote : "",
             reply: {
                 root: root,
                 parent: {
@@ -223,6 +253,9 @@ export async function startBots() {
         const configs = (JSON.parse(process.env.CONFIG ?? "") as ServiceConfig).bots;
         for (const config of configs) {
             const agent = await login(config);
+            const configJson = await fs.readFile(path.join("images", config.configFile), "utf-8");
+            const quotesAndImages = JSON.parse(configJson) as QuotesAndImages;
+            config.generatesAnswer = quotesAndImages.generatesAnswer;
             bots.push({ agent, config, lastImageIndex: -1 });
         }
     } catch (e) {
@@ -237,30 +270,62 @@ export async function startBots() {
             const record = event.commit.record as {
                 text: string;
                 $type: string;
+                reply?: {
+                    parent: { uri: string; cid: string };
+                    root: { uri: string; cid: string };
+                };
                 facets?: Array<{ features: Array<{ did: string; $type: string }> }>;
             };
+
             if (record.$type !== "app.bsky.feed.post") return;
 
-            if (record.facets) {
-                for (const facet of record.facets) {
-                    for (const feature of facet.features) {
-                        if (feature.$type === "app.bsky.richtext.facet#mention") {
-                            for (const bot of bots) {
-                                if (feature.did === bot.agent.session?.did) {
-                                    const postUrl = `https://bsky.app/profile/${event.did}/post/${event.commit.rkey}`;
-                                    console.log(chalk.magenta(`Bot ${bot.config.account} was mentioned in post: ${postUrl}`));
-                                    await replyWithRandomImage(bot, {
-                                        did: event.did,
-                                        cid: event.commit.cid,
-                                        rkey: event.commit.rkey,
-                                        record: event.commit.record as any,
-                                    });
-                                    break;
+            try {
+                // Check for mentions in facets
+                let answered = false;
+                if (record.facets) {
+                    for (const facet of record.facets) {
+                        for (const feature of facet.features) {
+                            if (feature.$type === "app.bsky.richtext.facet#mention") {
+                                for (const bot of bots) {
+                                    if (feature.did === bot.agent.session?.did) {
+                                        const postUrl = `https://bsky.app/profile/${event.did}/post/${event.commit.rkey}`;
+                                        console.log(chalk.magenta(`Bot ${bot.config.account} was mentioned in post: ${postUrl}`));
+                                        await replyWithRandomImage(bot, {
+                                            did: event.did,
+                                            cid: event.commit.cid,
+                                            rkey: event.commit.rkey,
+                                            record: event.commit.record as any,
+                                        });
+                                        answered = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
+                // Check if this is a reply to any bot
+                if (record.reply && !answered) {
+                    const parentUri = record.reply.parent.uri;
+                    const didMatch = parentUri.match(/did:plc:[^/]+/);
+                    const parentDid = didMatch ? didMatch[0] : null;
+                    for (const bot of bots) {
+                        if (parentDid == bot.agent.session?.did && bot.config.generatesAnswer) {
+                            const postUrl = `https://bsky.app/profile/${event.did}/post/${event.commit.rkey}`;
+                            console.log(chalk.magenta(`Bot ${bot.config.account} was replied to in post: ${postUrl}`));
+                            await replyWithRandomImage(bot, {
+                                did: event.did,
+                                cid: event.commit.cid,
+                                rkey: event.commit.rkey,
+                                record: event.commit.record as any,
+                            });
+                            break;
+                        }
+                    }
+                }
+            } catch (e) {
+                console.log("Unexpected error: ", e);
             }
         });
         jetstream.on("error", (error: Error, cursor) => {
