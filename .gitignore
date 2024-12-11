@@ -10,3 +10,5 @@ tokens.json
 images/kreiskybot.bsky.social.json
 images/moodengbot.bsky.social.json
 images/autoblocklistbot.bsky.social.json
+profiles-cursor.json
+profiles.jsonl
