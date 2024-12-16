@@ -89,7 +89,11 @@ export async function getPostThread(
         }
     }
 
-    await fetchPost(postUri);
+    try {
+        await fetchPost(postUri);
+    } catch (e) {
+        // Sometimes threads can't be resolved
+    }
     return thread;
 }
 
@@ -116,25 +120,12 @@ async function replyWithRandomImage(
         let quote = "";
         if (quotesAndImages.quotes) {
             try {
-                const threadResponse = getPostThread(
-                    new AtpAgent({ service: "https://public.api.bsky.app" }),
-                    bot.config.account,
-                    `at://${replyTo.did}/app.bsky.feed.post/${replyTo.rkey}`
-                );
+                const threadResponse = getPostThread(bot.agent, bot.config.account, `at://${replyTo.did}/app.bsky.feed.post/${replyTo.rkey}`);
                 Promise.all([uploadResponse, threadResponse]);
-                quote = await pickQuote(
-                    quotesAndImages.quotes,
-                    (
-                        await threadResponse
-                    )
-                        .reverse()
-                        .slice(0, 5)
-                        .map((p) => p.text)
-                        .join("\n\n")
-                );
+                quote = await pickQuote(bot.config.account, quotesAndImages.quotes, (await threadResponse).slice(0, 10));
                 quote = `"${quote}"`;
             } catch (e) {
-                console.log("Could not pick quote", e);
+                console.log("Could not pick quote");
             }
         } else if (quotesAndImages.generatesAnswer) {
             try {
@@ -147,7 +138,7 @@ async function replyWithRandomImage(
                 Promise.all([uploadResponse, threadResponse]);
                 quote = await generateAnswer(bot.config.account, (await threadResponse).slice(0, 10));
             } catch (e) {
-                console.log("Could not pick quote", e);
+                console.log("Could not get answer");
             }
         } else {
             await uploadResponse;
@@ -311,7 +302,7 @@ export async function startBots() {
                     const didMatch = parentUri.match(/did:plc:[^/]+/);
                     const parentDid = didMatch ? didMatch[0] : null;
                     for (const bot of bots) {
-                        if (parentDid == bot.agent.session?.did && bot.config.generatesAnswer) {
+                        if (parentDid == bot.agent.session?.did) {
                             const postUrl = `https://bsky.app/profile/${event.did}/post/${event.commit.rkey}`;
                             console.log(chalk.magenta(`Bot ${bot.config.account} was replied to in post: ${postUrl}`));
                             await replyWithRandomImage(bot, {

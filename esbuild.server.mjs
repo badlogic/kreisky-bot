@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+import { copy } from "esbuild-plugin-copy";
 import esbuild from "esbuild";
 import * as glob from "glob";
 import chokidar from "chokidar";
@@ -21,7 +21,16 @@ function getConfig() {
         bundle: true,
         sourcemap: true,
         platform: "node",
-        external: ["fsevents"],
+        external: ["fsevents", "pdfjs-dist/*"],
+        plugins: [
+            copy({
+                resolveFrom: "cwd",
+                assets: {
+                    from: ["./node_modules/pdfjs-dist/legacy/build/pdf*"],
+                    to: ["./build/node_modules/pdfjs-dist/legacy/build"],
+                },
+            }),
+        ],
         outdir: "build/",
         logLevel: "info",
         minify: false,

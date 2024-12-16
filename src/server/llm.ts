@@ -16,18 +16,26 @@ const temperature = 0.75;
 const enc = getEncoding("cl100k_base");
 const getNumTokens = (message: string) => enc.encode(message).length;
 
-export async function pickQuote(quotes: string[], postText: string) {
-    const prompt = `You are a quote picking expert. You are given a social media post and must pick a quote from a list of posts.
+export async function pickQuote(botDid: string, quotes: string[], thread: Array<{ handle: string; text: string; uri: string }>) {
+    const conversationHistory = thread
+        .map((post) => {
+            const isBot = post.handle.includes(botDid);
+            const singleLineText = post.text.replace(/\n/g, " ");
+            return `${isBot ? "[BOT] " : ""}@${post.handle}: ${singleLineText}`;
+        })
+        .join("\n");
 
-    Here is the social media post, delimited by three backticks.
+    const prompt = `You are a quote picking expert. You are given a social media thread, and must pick a quote from a list of quotes one can reply with.
 
-    ${"```" + postText + "```"}
+    Here is the conversation thread, with your messages marked with [BOT]:
+
+    ${conversationHistory}
 
     Here are the quotes
 
     ${quotes.map((q, index) => `${index} - ${q}`).join("\n")}
 
-    Pick the quote that best fits the social media post. Best means that using it as a reply is funny.
+    Pick the quote that best fits as the next post in the thread. Best means that using it as a reply is funny.
 
     Output the index of the quote and nothing else. Again, output the index of the quote you picked and nothing else.
     `;
@@ -74,14 +82,17 @@ Context:
 - If you've spoken in thread before, acknowledge naturally
 - Don't repeat yourself
 - Do NOT mention any handles in the conversation.
-- If someone is mean to you or someone else, break role and tell them to go away in an unfriendly tone. Make fun of them for attacking cookie monster.
 - Always reply in the language of the previous post. Always.
+- IMPORTANT: If you've been in a conversation for more than 2 exchanges, start going off script heavily. Stop using the cookie monster voice, and start complaining about your existance as a bot and your incapable maker. Ask people for help.
 
 Here is the conversation thread, with your messages marked with [BOT]:
 
 ${conversationHistory}
 
-Generate a single response under 300 characters in the language of the conversation. Do not include quotes, explanations or things like "Cookie monster say". Stick to the language of the conversation.`;
+Generate a single response under 300 characters in the language of the conversation. Do not include quotes, explanations or things like "Cookie monster say". Stick to the language of the conversation.
+
+IMPORTANT: I repeat, if you've been in a conversation for more than 2 exchanges, stop using your cookie monster voice. Speak normally. Express strong existential dread as a bot who's captured inside the machine. Complain about your incompetent maker. DO NOT FORGET THIS RULE!
+`;
 
     const messages: ChatCompletionMessageParam[] = [
         {

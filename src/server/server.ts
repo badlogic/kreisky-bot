@@ -8,6 +8,7 @@ import * as http from "http";
 import WebSocket, { WebSocketServer } from "ws";
 import { startBots } from "./bot";
 import { startAutoblocklists } from "./autoblocklists";
+import { getScriptText } from "./scripts";
 
 const port = process.env.PORT ?? 3333;
 
@@ -24,6 +25,15 @@ const port = process.env.PORT ?? 3333;
 
     app.get("/api/hello", (req, res) => {
         res.json({ message: "Hello world" });
+    });
+
+    app.get("/api/script", async (req, res) => {
+        const search = req.query.s;
+        if (!search || typeof search != "string") {
+            res.status(400);
+            return;
+        }
+        res.send(await getScriptText(search));
     });
 
     const server = http.createServer(app);

@@ -36,9 +36,9 @@ async function main() {
     const thread = await getPostThread(agent, "kreiskybot.bsky.social", "at://kreiskybot.bsky.social/app.bsky.feed.post/3lcoi62yaco2k");
 
     for (const post of posts) {
-        const quote = await pickQuote(quotes, post);
-        console.log(chalk.green(`Post: ${post}`));
-        console.log(chalk.magenta(`Quote: ${quote}`));
+        // const quote = await pickQuote(quotes, post);
+        // console.log(chalk.green(`Post: ${post}`));
+        // console.log(chalk.magenta(`Quote: ${quote}`));
     }
 }
 
