@@ -4,7 +4,7 @@ npm run build
 host=slayer.marioslab.io
 host_dir=/home/badlogic/kreiskybot.mariozechner.at
 
-rsync -avz --exclude node_modules --exclude .git --exclude data --exclude docker/data ./ $host:$host_dir
+rsync -avz --include 'build/node_modules/**' --exclude node_modules --exclude .git --exclude data --exclude docker/data ./ $host:$host_dir
 
 if [ "$1" == "server" ]; then
     echo "Publishing client & server"

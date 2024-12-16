@@ -12,11 +12,12 @@ interface Variables {
 }
 
 interface PDFExtractResult {
+    id?: string;
     pdfUrl?: string;
     error?: string;
 }
 
-export async function fetchScriptPDF(scriptUrl: string): Promise<PDFExtractResult> {
+export async function fetchScriptPDF(id: string, scriptUrl: string): Promise<PDFExtractResult> {
     try {
         const response = await fetch(scriptUrl);
         const html = await response.text();
@@ -26,12 +27,12 @@ export async function fetchScriptPDF(scriptUrl: string): Promise<PDFExtractResul
         const pdfUrl = $("a.js-button-read").attr("href") || $("#scriptViewer").attr("data-file");
 
         if (pdfUrl) {
-            return { pdfUrl };
+            return { id, pdfUrl };
         }
 
-        return { error: "PDF URL not found in the HTML" };
+        return { id, error: "PDF URL not found in the HTML" };
     } catch (error) {
-        return { error: `Failed to fetch script page: ${error}` };
+        return { id, error: `Failed to fetch script page: ${error}` };
     }
 }
 
@@ -85,20 +86,26 @@ export async function searchAndGetPDF(searchTerm: string): Promise<PDFExtractRes
             return { error: `GraphQL Error: ${searchData.errors[0].message}` };
         }
 
-        if (!searchData.data?.scriptsEntries?.[0]?.uri) {
+        const results = searchData.data.scriptsEntries.filter((e: any) => e.uri);
+        if (results.length == 0) {
             return { error: "No scripts found" };
         }
-
-        // Get the first result's URI and fetch its page
-        const scriptUrl = `https://www.scriptslug.com/${searchData.data.scriptsEntries[0].uri}`;
-        return await fetchScriptPDF(scriptUrl);
+        const scriptUrl = `https://www.scriptslug.com/${results[0].uri}`;
+        const id = results[0].uri.replace("script/", "");
+        return await fetchScriptPDF(id, scriptUrl);
     } catch (error) {
         return { error: `Failed to search for script: ${error}` };
     }
 }
 
-export async function getScriptText(search: string) {
+export type Script = { id: string; scriptUrl: string; text: string };
+export const scripts: Record<string, Script> = {};
+
+export async function getScriptText(search: string): Promise<Script> {
     const movies = await searchAndGetPDF(search);
+    if (scripts[movies.id ?? ""]) {
+        return scripts[movies.id ?? ""];
+    }
     const task = await getDocument(movies.pdfUrl);
     const doc = await task.promise;
 
@@ -108,5 +115,8 @@ export async function getScriptText(search: string) {
         const content = page.getTextContent();
         text += (await content).items.map((item) => (item as TextItem).str).join(" ");
     }
-    return text;
+
+    const script = { id: movies.id!, scriptUrl: movies.pdfUrl!, text };
+    scripts[movies.id!] = script;
+    return script;
 }

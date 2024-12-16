@@ -1,19 +1,23 @@
 import chalk from "chalk";
-import { AppBskyFeedDefs, AppBskyFeedPost, AtpAgent, AtpSessionData } from "@atproto/api";
+import { AppBskyFeedDefs, AppBskyFeedPost, AtpAgent, AtpSessionData, BlobRef, ComAtprotoRepoUploadBlob } from "@atproto/api";
 import { Jetstream } from "@skyware/jetstream";
 import WebSocket from "ws";
 import fs from "fs/promises";
 import path from "path";
 import { generateAnswer, pickQuote } from "./llm";
+import { applyBechdelTest } from "./bechdel";
+import { sleep } from "../utils/utils";
 
 export interface ImageInfo {
     path: string;
     alt: string;
 }
 
+export type BotType = "image" | "quotes" | "answer" | "bechdel";
+
 export interface QuotesAndImages {
     quotes?: string[];
-    generatesAnswer: boolean;
+    type: BotType;
     images: ImageInfo[];
 }
 
@@ -21,7 +25,7 @@ export type BotConfig = {
     account: string;
     password: string;
     configFile: string;
-    generatesAnswer: boolean;
+    type: BotType;
 };
 
 export type Bot = {
@@ -97,79 +101,121 @@ export async function getPostThread(
     return thread;
 }
 
-async function replyWithRandomImage(
+async function pickImage(bot: Bot) {
+    const configJson = await fs.readFile(path.join("images", bot.config.configFile), "utf-8");
+    const quotesAndImages = JSON.parse(configJson) as QuotesAndImages;
+
+    if (bot.config.type == "bechdel") return { quotesAndImages };
+    bot.lastImageIndex = (bot.lastImageIndex + 1) % quotesAndImages.images.length;
+    const randomImage = quotesAndImages.images[bot.lastImageIndex];
+    const imageData = await fs.readFile(path.join("images", randomImage.path));
+    const uploadResponse = await bot.agent.api.com.atproto.repo.uploadBlob(imageData, {
+        encoding: "image/jpeg",
+    });
+
+    return { quotesAndImages, imageBlob: uploadResponse.data.blob, alt: randomImage.alt };
+}
+
+async function reply(
     bot: Bot,
     replyTo: {
         did: string;
         cid: string;
         rkey: string;
-        record: { reply?: { root: { uri: string; cid: string } } };
+        record: { text: string; reply?: { root: { uri: string; cid: string } } };
     }
 ) {
     try {
-        const configJson = await fs.readFile(path.join("images", bot.config.configFile), "utf-8");
-        const quotesAndImages = JSON.parse(configJson) as QuotesAndImages;
-        bot.lastImageIndex = (bot.lastImageIndex + 1) % quotesAndImages.images.length;
-        const randomImage = quotesAndImages.images[bot.lastImageIndex];
-        const imageData = await fs.readFile(path.join("images", randomImage.path));
+        const replyToUri = `at://${replyTo.did}/app.bsky.feed.post/${replyTo.rkey}`;
+        const sendReply = async (text: string, imageBlob?: BlobRef, alt?: string) => {
+            const root = replyTo.record.reply?.root ?? {
+                uri: replyToUri,
+                cid: replyTo.cid,
+            };
+            const parent = {
+                uri: replyToUri,
+                cid: replyTo.cid,
+            };
 
-        const uploadResponse = bot.agent.api.com.atproto.repo.uploadBlob(imageData, {
-            encoding: "image/jpeg",
-        });
+            if (imageBlob && alt) {
+                await bot.agent.post({
+                    text,
+                    reply: {
+                        root,
+                        parent,
+                    },
+                    embed: {
+                        $type: "app.bsky.embed.images",
+                        images: [
+                            {
+                                image: imageBlob,
+                                alt: alt.substring(0, 1800),
+                            },
+                        ],
+                    },
+                });
+            } else {
+                await bot.agent.post({
+                    text,
+                    reply: {
+                        root,
+                        parent,
+                    },
+                });
+            }
+        };
 
-        let quote = "";
-        if (quotesAndImages.quotes) {
+        if (bot.config.type == "quotes") {
             try {
-                const threadResponse = getPostThread(bot.agent, bot.config.account, `at://${replyTo.did}/app.bsky.feed.post/${replyTo.rkey}`);
-                Promise.all([uploadResponse, threadResponse]);
-                quote = await pickQuote(bot.config.account, quotesAndImages.quotes, (await threadResponse).slice(0, 10));
-                quote = `"${quote}"`;
+                const threadResponse = await getPostThread(bot.agent, bot.config.account, replyToUri);
+                const pickedImage = await pickImage(bot);
+                if (!pickedImage.imageBlob) throw new Error("Could not upload image");
+                const text = await pickQuote(bot.config.account, pickedImage.quotesAndImages.quotes!, threadResponse.slice(0, 10));
+                await sendReply(`"${text}"`, pickedImage.imageBlob, pickedImage.alt);
             } catch (e) {
                 console.log("Could not pick quote");
             }
-        } else if (quotesAndImages.generatesAnswer) {
+        } else if (bot.config.type == "answer") {
             try {
-                const threadResponse = getPostThread(
-                    new AtpAgent({ service: "https://public.api.bsky.app" }),
-                    bot.config.account,
-                    `at://${replyTo.did}/app.bsky.feed.post/${replyTo.rkey}`,
-                    false
-                );
-                Promise.all([uploadResponse, threadResponse]);
-                quote = await generateAnswer(bot.config.account, (await threadResponse).slice(0, 10));
+                const threadResponse = await getPostThread(bot.agent, bot.config.account, replyToUri, false);
+                const pickedImage = await pickImage(bot);
+                if (!pickedImage.imageBlob) throw new Error("Could not upload image");
+                const text = await generateAnswer(bot.config.account, await threadResponse.slice(0, 10));
+                await sendReply(text, pickedImage.imageBlob, pickedImage.alt);
             } catch (e) {
                 console.log("Could not get answer");
             }
-        } else {
-            await uploadResponse;
+        } else if (bot.config.type == "bechdel") {
+            let success = false;
+            for (let i = 0; i < 5; i++) {
+                try {
+                    const threadResponse = await getPostThread(bot.agent, bot.config.account, replyToUri, false);
+                    const search = threadResponse[threadResponse.length - 1].text
+                        .replace("@" + bot.config.account, "")
+                        .replace(bot.config.account, "")
+                        .trim();
+                    const bechdelResponse = await applyBechdelTest(search);
+                    const uploadResponse = await bot.agent.api.com.atproto.repo.uploadBlob(bechdelResponse.png, {
+                        encoding: "image/jpeg",
+                    });
+                    await sendReply("Here you go", uploadResponse.data.blob, bechdelResponse.markdown);
+                    success = true;
+                    break;
+                } catch (e) {
+                    console.log(chalk.red(`Failed to apply bechdel test, retrying`), e);
+                    await sleep(2000);
+                }
+            }
+            if (!success) {
+                await sendReply("Sorry, I couldn't find a script for that movie.");
+            }
+        } else if (bot.config.type == "image") {
+            const pickedImage = await pickImage(bot);
+            if (!pickedImage.imageBlob) throw new Error("Could not upload image");
+            await sendReply("", pickedImage.imageBlob, pickedImage.alt);
         }
 
-        const root = replyTo.record.reply?.root ?? {
-            uri: `at://${replyTo.did}/app.bsky.feed.post/${replyTo.rkey}`,
-            cid: replyTo.cid,
-        };
-
-        await bot.agent.post({
-            text: quote ? quote : "",
-            reply: {
-                root: root,
-                parent: {
-                    uri: `at://${replyTo.did}/app.bsky.feed.post/${replyTo.rkey}`,
-                    cid: replyTo.cid,
-                },
-            },
-            embed: {
-                $type: "app.bsky.embed.images",
-                images: [
-                    {
-                        alt: randomImage.alt,
-                        image: (await uploadResponse).data.blob,
-                    },
-                ],
-            },
-        });
-
-        console.log(chalk.green(`Posted reply with image: ${randomImage.path} for bot ${bot.config.account}`));
+        console.log(chalk.green(`Posted reply for bot ${bot.config.account}`));
     } catch (error) {
         console.error(chalk.red(`Error posting image reply for bot ${bot.config.account}:`), error);
     }
@@ -246,7 +292,7 @@ export async function startBots() {
             const agent = await login(config);
             const configJson = await fs.readFile(path.join("images", config.configFile), "utf-8");
             const quotesAndImages = JSON.parse(configJson) as QuotesAndImages;
-            config.generatesAnswer = quotesAndImages.generatesAnswer;
+            config.type = quotesAndImages.type;
             bots.push({ agent, config, lastImageIndex: -1 });
         }
     } catch (e) {
@@ -281,7 +327,7 @@ export async function startBots() {
                                     if (feature.did === bot.agent.session?.did) {
                                         const postUrl = `https://bsky.app/profile/${event.did}/post/${event.commit.rkey}`;
                                         console.log(chalk.magenta(`Bot ${bot.config.account} was mentioned in post: ${postUrl}`));
-                                        await replyWithRandomImage(bot, {
+                                        await reply(bot, {
                                             did: event.did,
                                             cid: event.commit.cid,
                                             rkey: event.commit.rkey,
@@ -302,10 +348,10 @@ export async function startBots() {
                     const didMatch = parentUri.match(/did:plc:[^/]+/);
                     const parentDid = didMatch ? didMatch[0] : null;
                     for (const bot of bots) {
-                        if (parentDid == bot.agent.session?.did) {
+                        if (parentDid == bot.agent.session?.did && bot.config.type != "bechdel") {
                             const postUrl = `https://bsky.app/profile/${event.did}/post/${event.commit.rkey}`;
                             console.log(chalk.magenta(`Bot ${bot.config.account} was replied to in post: ${postUrl}`));
-                            await replyWithRandomImage(bot, {
+                            await reply(bot, {
                                 did: event.did,
                                 cid: event.commit.cid,
                                 rkey: event.commit.rkey,

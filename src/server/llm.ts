@@ -1,6 +1,7 @@
 import { getEncoding } from "js-tiktoken";
 import { OpenAI } from "openai";
 import { ChatCompletionMessage, ChatCompletionMessageParam } from "openai/resources";
+import { Script } from "./scripts";
 
 const openaiKey = process.env.OPENAI_KEY;
 if (!openaiKey) {
@@ -115,5 +116,50 @@ IMPORTANT: I repeat, if you've been in a conversation for more than 2 exchanges,
         answer = answer.substring(0, 297) + "...";
     }
 
+    return answer;
+}
+
+const bechdelPrompt = `### INSTRUCTIONS:
+Format your output using Markdown.
+
+- Output the film name.
+- Apply the Bechdel test to every scene in the script above that features two named women. The test asks whether a work features at least two female characters who have a conversation about something other than a man.
+- Conclude with a summary about the movie with respect to the Bechdel test. A single passing scene is enough for a movie to pass overall. Start with a bold FAIL or PASS.
+
+The output should follow this format:
+
+# Title
+## Analysis
+### Scene 1 title
+- Characters: ...
+- Conversation: ...
+- Test Pass: **FAIL/PASS**, ... reason ...
+### Scene 2 title
+...
+## Summary
+**FAIL/PASS** - ... reason ...
+`;
+
+const bechdels: Record<string, string> = {};
+
+export async function bechdel(script: Script) {
+    if (bechdels[script.id]) return bechdels[script.id];
+
+    const messages: ChatCompletionMessageParam[] = [
+        {
+            role: "system",
+            content: script.text + "\n\n" + bechdelPrompt,
+        },
+    ];
+
+    const response = await openAI.chat.completions.create({
+        model: modelName,
+        messages,
+        temperature: 1,
+        max_tokens: 2048,
+    });
+
+    let answer = response.choices[0].message.content ?? "";
+    bechdels[script.id] = answer;
     return answer;
 }

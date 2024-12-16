@@ -94,6 +94,7 @@ export async function saveBlocklist(agent: AtpAgent, dids: string[]) {
 }
 
 export async function startAutoblocklists() {
+    return;
     const update = async () => {
         const blocker = (JSON.parse(process.env.CONFIG ?? "") as ServiceConfig).autoblocker;
         const agent = await login(blocker);

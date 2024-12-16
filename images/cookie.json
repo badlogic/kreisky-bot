@@ -69,5 +69,5 @@
             "alt": "Krümelmonster vertilgt Kekse"
         }
     ],
-    "generatesAnswer": true
+    "type": "answer"
 }
