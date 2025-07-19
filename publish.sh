@@ -5,7 +5,7 @@ host=slayer.marioslab.io
 host_dir=/home/badlogic/kreiskybot.mariozechner.at
 
 # Create .env file locally in docker directory
-cat > docker/.env << 'EOF'
+cat > docker/.env << EOF
 KREISKYBOT_CONFIG=$KREISKYBOT_CONFIG
 KREISKYBOT_OPENAI_KEY=$KREISKYBOT_OPENAI_KEY
 EOF
