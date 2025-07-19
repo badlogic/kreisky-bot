@@ -14,3 +14,4 @@ profiles-cursor.json
 profiles.jsonl
 images/keksbot.bsky.social.json
 images/bechdelbot.bsky.social.json
+docker/.env
